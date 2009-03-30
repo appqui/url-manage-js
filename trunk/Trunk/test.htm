@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Test JavaScript Url Manage</title>
+
+        <script type="text/javascript" src="uri-parse.js"></script>
+        <script type="text/javascript" src="uri-manage-0.1.js"></script>
+        <script type="text/javascript">
+            
+            var source = 'http://www.google.com/petya/vasya?kulyoma=kucha';
+            var url = source.url();
+            
+            fireunit.compare(url.string(), source, "objects compare");
+            fireunit.compare(url.attr('protocol'), 'http', "check protocol is http");
+            fireunit.compare(url.attr('protocol', 'file').string(),
+                             'file://www.google.com/petya/vasya?kulyoma=kucha',
+                             "change protocol to file");
+
+            fireunit.compare(url.attr('protocol', 'file')
+                                .param({ kulyoma: 5, kulyoma2: 3, kulyoma3: 7 })
+                                .string(),
+                             'file://www.google.com/petya/vasya?kulyoma=5&kulyoma2=3&kulyoma3=7',
+                             "check param");
+
+            fireunit.compare(url.attr('protocol', 'file').attr('port', 80)
+                                .string(),
+                             'file://www.google.com:80/petya/vasya?kulyoma=5&kulyoma2=3&kulyoma3=7',
+                             "check port");
+            
+        </script>
+    </head>
+    <body>
+        
+    </body>
+</html>
